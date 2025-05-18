@@ -11,7 +11,7 @@ from .dinov2.models.vision_transformer import vit_base,vit_large
 
 
 
-class DETRIS(nn.Module):
+class TGMAFN(nn.Module):
     def __init__(self, cfg):
         super().__init__()
         # Text Encoder
@@ -65,15 +65,11 @@ class DETRIS(nn.Module):
 
         # Projector
         self.proj = Projector(cfg.word_dim, cfg.vis_dim // 2, 3)
-        # 视觉对语言影响的 Transformer 解码器
+
         self.vis2txt_decoder = CrossModalTransformer(d_model=cfg.vis_dim, nhead=cfg.num_head, num_layers=4)
         self.reduce_layer = nn.Linear(1024, 512)
 
 
-
-
-        
-        
 
 
     def forward(self, img, word, mask=None):
@@ -86,41 +82,27 @@ class DETRIS(nn.Module):
         # padding mask used in decoder
         pad_mask = torch.zeros_like(word).masked_fill_(word == 0, 1).bool()
 
-        # vis: C3 / C4 / C5
-        # word: b, length, 1024
-        # state: b, 1024
-
         vis, word, state= self.fusion(img, word, self.txt_backbone, self.dinov2)
-        #for i, v in enumerate(vis):
-            #print(f"视觉特征 (DINOv2 输出) 形状: {v.shape}")  # 视觉特征
-        #print(f"文本特征 (CLIP 输出) 形状: {word.shape}")  # 文本特征
-        #print(f"全局状态特征 形状: {state.shape}")  # 全局特征
-        
+
 
 
         
         # b, 512, 26, 26 (C4)
         fq = self.neck(vis, state)
-        #print(f"fq 形状: {fq.shape}")  # 输出 fq 的形状
+
         
         b, c, h, w = fq.size()
         E=fq 
         fq = self.decoder(fq, word, pad_mask)
         fq = fq.reshape(b, c, h, w)
         
-        fq_flattened = fq.view(b, c, -1).permute(0, 2, 1)  # 变为 (b, hw, c)
+        fq_flattened = fq.view(b, c, -1).permute(0, 2, 1)  
         state_expanded = state.unsqueeze(1)  # (b, 1, c)
-        A = self.vis2txt_decoder(state_expanded, fq_flattened)  # 交互得到新的全局文本特征 A
+        A = self.vis2txt_decoder(state_expanded, fq_flattened)  
         A = A.squeeze(1)  # (b, c)
         concat_feat = torch.cat([state, A], dim=1)  # (b, 1024)
         
         B = self.reduce_layer(concat_feat)  # (b, 512)
-
-# 通过 Linear 降维到 512 维
-
-        
-        
-
 
 
         # b, 1, 104, 104
