@@ -86,11 +86,11 @@ class TGMAFN(nn.Module):
 
 
 
-        
+        #stage1
         # b, 512, 26, 26 (C4)
         fq = self.neck(vis, state)
 
-        
+        #stage2
         b, c, h, w = fq.size()
         E=fq 
         fq = self.decoder(fq, word, pad_mask)
