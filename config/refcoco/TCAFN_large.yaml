@@ -51,7 +51,7 @@ TRAIN:
   manual_seed: 0
   print_freq: 100
   # Resume & Save
-  exp_name: TGMAFN_large
+  exp_name: TCAFN_large
   output_folder: exp/refcoco
   save_freq: 1
   weight:  # path to initial weight (default: none)
