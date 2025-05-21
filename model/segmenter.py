@@ -11,7 +11,7 @@ from .dinov2.models.vision_transformer import vit_base,vit_large
 
 
 
-class TGMAFN(nn.Module):
+class TCAFN(nn.Module):
     def __init__(self, cfg):
         super().__init__()
         # Text Encoder
