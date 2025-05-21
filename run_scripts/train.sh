@@ -1,5 +1,5 @@
 dataset_name="refcocog_u" # "refcoco", "refcoco+", "refcocog_g", "refcocog_u"
-config_name="DETRIS_base.yaml"
+config_name="TCAFN_base.yaml"
 gpu="0,1"
 np=$(echo $gpu | tr -cd ',' | wc -c)
 np=$((np + 1))
