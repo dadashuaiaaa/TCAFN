@@ -1,8 +1,8 @@
 dataset_name="refcocog_u" # "refcoco", "refcoco+", "refcocog_g", "refcocog_u"
-config_name="DETRIS_base.yaml"
+config_name="TCAFN_base.yaml"
 gpu=0
 split_name="test" # "val", "testA", "testB" 1
-model_path='/home/wzy_model/PAMI/DETRIS-main/DETRIS-main/exp/refcocog_u/DETRIS_base_128_8_512_3_2025-03-13-09-20-36/best_model.pth'
+model_path='/exp/refcocog_u/TCAFN/best_model.pth'
 
 # Evaluation on the specified of the specified dataset
 filename=$dataset_name"_$(date +%m%d_%H%M%S)"
