@@ -5,8 +5,8 @@ This is a raw version at the moment; a tweaked version will be released online a
 
 ## Environment
 ```bash
-conda create -n DETRIS python=3.9.18 -y
-conda activate DETRIS
+conda create -n TCAFN python=3.9.18 -y
+conda activate TCAFN
 pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
 pip install -r requirement.txt
 ```
@@ -14,6 +14,7 @@ pip install -r requirement.txt
 ## Datasets
 The detailed instruction is in [prepare_datasets.md](tools/prepare_datasets.md)
 
+Both the datasets and pretrained weights are publicly available and do not contain any information that could reveal the authors' identities.
 
 ## Pretrained weights
 Download the pretrained weights of DiNOv2-B, DiNOv2-L and ViT-B to pretrain
