@@ -58,7 +58,6 @@ TRAIN:
   weight:  # path to initial weight (default: none)
   resume:  # path to latest checkpoint (default: none)
   evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
-
 TEST:
   test_split: val-test
   test_lmdb: datasets/lmdb/refcoco/val.lmdb
