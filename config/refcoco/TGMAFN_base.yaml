@@ -7,7 +7,7 @@ DATA:
   mask_root: datasets/masks/refcoco
 TRAIN:
   visual_adapter_dim: 128
-  visual_adapter_layer: [1,3,5,7,9,11]
+  visual_adapter_layer: [2,3,5,7,9,11]
   txt_adapter_dim: 64
   txtual_adapter_layer: [1,3,5,7,9,11]
   # Base Arch
@@ -51,7 +51,7 @@ TRAIN:
   manual_seed: 0
   print_freq: 100
   # Resume & Save
-  exp_name: DETRIS_base
+  exp_name: TGMAFN_base
   output_folder: exp/refcoco
   save_freq: 1
   weight:  # path to initial weight (default: none)
